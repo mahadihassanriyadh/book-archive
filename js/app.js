@@ -54,6 +54,6 @@ const displayResult = (searchResults) => {
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';
     document.getElementById('search-result-volume').style.display = 'block';
-}git a
+}
 
 
