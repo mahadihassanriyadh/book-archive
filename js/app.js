@@ -1,5 +1,13 @@
+// hide the loading spinner
 document.getElementById('spinner').style.display = 'none';
-// getting value from the search field
+
+
+
+/*
+.............
+Execute the search from the search button click 
+.............
+*/
 const searchBook = () => {
     document.getElementById('spinner').style.display = 'block';
     document.getElementById('result-section').style.display = 'none';
@@ -10,14 +18,21 @@ const searchBook = () => {
     searchField.value = '';
     const url = `https://openlibrary.org/search.json?q=${searchText}`;
     // const url = `https://openlibrary.org/search.json?q=${searchText}/?_limit=100`; 
-    console.log(url);
     fetch(url)
         .then(response => response.json())
         .then(data => displayResult(data))
 }
 
+
+
+/*
+.............
+Display the search result 
+.............
+*/
 const displayResult = (searchResults) => {
-    // console.log(searchResults.numFound);
+    
+    // Display the result volume
     const div = document.getElementById('search-result-volume');
     const p = document.createElement('p');
     div.textContent = '';
@@ -25,19 +40,17 @@ const displayResult = (searchResults) => {
     div.appendChild(p);
 
 
-    const searchResultField = document.getElementById('search-result');
-    searchResultField.textContent = '';
-    console.log(searchResults.docs);
 
+    // Displaying the results
+    const searchResultContainer = document.getElementById('search-result');
+    searchResultContainer.textContent = '';
     searchResults.docs.forEach(result => {
-        console.log(result);
-        // console.log(result.author_name);
+        // book id
         const cover_i = result.cover_i;
+        // cover img url
         const imgUrl = `https://covers.openlibrary.org/b/id/${cover_i}-M.jpg`
-
         const div = document.createElement('div');
         div.classList.add('col');
-        // console.log(result.author_name?.[0]);
         div.innerHTML = `
                 <div class="card h-100 m-5 w-100">
                     <img src="${imgUrl}" class="card-img-top img-fluid" alt="...">
@@ -49,7 +62,7 @@ const displayResult = (searchResults) => {
                     </div>
                 </div>
                 `;
-        searchResultField.appendChild(div);
+        searchResultContainer.appendChild(div);
     })
     document.getElementById('spinner').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';
